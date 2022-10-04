@@ -1,0 +1,11 @@
+syntax = "proto3";
+option go_package = "https://github.com/jskoven/gRPC_testing";
+package chat;
+
+message Message {
+    string body = 1;
+}
+
+service ChatService{
+    rpc sayHello(Message) returns (Message){}
+}
