@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 
+	gRPC_testing "github.com/jskoven/gRPC_testing/chat"
 	"google.golang.org/grpc"
 )
 
@@ -13,7 +14,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen on port 9000: %t", err)
 	}
+
+	s := gRPC_testing.Server{}
+
 	grpcSever := grpc.NewServer()
+
+	gRPC_testing.RegisterChatServiceServer(grpcSever, &s)
+
 	if err := grpcSever.Serve(lis); err != nil {
 		log.Fatalf("Failed")
 	}
