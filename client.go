@@ -22,25 +22,30 @@ func main() {
 
 	c := gRPC_testing.NewChatServiceClient(conn)
 
-	Scanner := bufio.NewScanner(os.Stdin)
-	Scanner.Scan()
-	textToSend := Scanner.Text()
+	for {
+		Scanner := bufio.NewScanner(os.Stdin)
+		Scanner.Scan()
+		textToSend := Scanner.Text()
+		if textToSend == "exit" {
+			break
+		}
 
-	message := gRPC_testing.Message{
-		Body:    textToSend,
-		TimeNow: time.Now().String(),
-	}
+		message := gRPC_testing.Message{
+			Body:    textToSend,
+			TimeNow: time.Now().String(),
+		}
 
-	response, err := c.SayHello(context.Background(), &message)
-	if err != nil {
-		log.Fatalf("Error when calling sayHello: %s", err)
-	}
+		response, err := c.SayHello(context.Background(), &message)
+		if err != nil {
+			log.Fatalf("Error when calling sayHello: %s", err)
+		}
 
-	log.Printf("Response from server: %s", response.Body)
-	log.Printf("Time on server is: %s", response.TimeNow)
-	timeIntime, err := time.Parse("", response.TimeNow)
-	if err != nil {
-		log.Printf("error in parsing time: %s", err)
+		log.Printf("Response from server: %s", response.Body)
+		log.Printf("Time on server is: %s", response.TimeNow)
+		timeIntime, err := time.Parse("", response.TimeNow)
+		if err != nil {
+			log.Printf("error in parsing time: %s", err)
+		}
+		log.Printf("Time parsed is: ", timeIntime)
 	}
-	log.Printf("Time parsed is: ", timeIntime)
 }
