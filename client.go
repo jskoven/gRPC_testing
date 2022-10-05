@@ -32,7 +32,7 @@ func main() {
 
 	log.Printf("Response from server: %s", response.Body)
 	log.Printf("Time on server is: %s", response.TimeNow)
-	timeIntime, err := time.Parse("DD-MM-YYYY", response.TimeNow)
+	timeIntime, err := time.Parse("0000-00-00 00:00:00 +0000", response.TimeNow)
 	if err != nil {
 		log.Printf("error in parsing time: %s", err)
 	}
