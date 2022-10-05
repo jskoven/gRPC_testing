@@ -1,7 +1,9 @@
 package gRPC_testing
 
 import (
+	"bufio"
 	"log"
+	"os"
 	"time"
 
 	"golang.org/x/net/context"
@@ -14,5 +16,9 @@ type Server struct {
 func (s *Server) SayHello(ctx context.Context, message *Message) (*Message, error) {
 	log.Printf("Received message body from client: %s", message.Body)
 	log.Printf("Received time from client: %s", message.TimeNow)
-	return &Message{Body: "Server received message and time.", TimeNow: time.Now().String()}, nil
+	Scanner := bufio.NewScanner(os.Stdin)
+	Scanner.Scan()
+	log.Printf("What do you wish to respond with?")
+	textToSend := Scanner.Text()
+	return &Message{Body: textToSend, TimeNow: time.Now().String()}, nil
 }

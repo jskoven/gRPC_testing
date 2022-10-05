@@ -5,7 +5,6 @@ package chat;
 message Message {
     string body = 1;
     string timeNow = 2;
-    Timestamp timestamp = 3;
 }
 
 service ChatService{
