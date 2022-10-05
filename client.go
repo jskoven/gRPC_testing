@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"time"
 
 	gRPC_testing "github.com/jskoven/gRPC_testing/chat"
 	"golang.org/x/net/context"
@@ -10,7 +11,7 @@ import (
 
 func main() {
 	var conn *grpc.ClientConn
-	conn, err := grpc.Dial(":9000", grpc.WithInsecure())
+	conn, err := grpc.Dial("192.168.43.169:9000", grpc.WithInsecure())
 
 	if err != nil {
 		log.Fatalf("could not connect: %s", err)
@@ -20,7 +21,8 @@ func main() {
 	c := gRPC_testing.NewChatServiceClient(conn)
 
 	message := gRPC_testing.Message{
-		Body: "hello from the client yee!!",
+		Body:    "Det her er min besked til dig Maltus",
+		TimeNow: time.Now().String(),
 	}
 
 	response, err := c.SayHello(context.Background(), &message)
