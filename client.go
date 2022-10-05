@@ -31,5 +31,5 @@ func main() {
 	}
 
 	log.Printf("Response from server: %s", response.Body)
-	log.Printf("Time on server is: %s", &message.TimeNow)
+	log.Printf("Time on server is: %s", message.TimeNow)
 }
